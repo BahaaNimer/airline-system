@@ -9,6 +9,9 @@ let ID = faker.datatype.uuid();
 const events_airline = io.connect(`${host}/airline`);
 const events = io.connect(host);
 
+
+events.emit('get-all');
+
 events_airline.on('new-flight', () => {
   setTimeout(() => {
     let tookOff = `Pilot: flight with ID ${ID} took-off`;
@@ -23,16 +26,7 @@ events.on('new-flight', () => {
     events.emit('Arrived', arrived);
   }, 7000);
 });
-
-
-// setTimeout(() => {
-//   let tookOff = `Pilot: flight with ID ${ID} took-off`;
-//   console.log(tookOff);
-//   events_airline.emit('took-off', tookOff);
-// }, 4000);
-
-// setTimeout(() => {
-//   let arrived = `Pilot: flight with ID ${ID} has arrived`;
-//   console.log(arrived);
-//   events.emit('Arrived', arrived);
-// }, 7000);
+events.on('flight', (payload) => {
+  console.log(payload);
+  console.log(`Pilot:Sorry i didn't catch this flight ID ${ID}.`);
+})
