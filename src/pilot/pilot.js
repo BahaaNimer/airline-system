@@ -16,17 +16,19 @@ events_airline.on('new-flight', () => {
   setTimeout(() => {
     let tookOff = `Pilot: flight with ID ${ID} took-off`;
     console.log(tookOff);
-    events_airline.emit('took-off', tookOff);
+    events_airline.emit('took-off');
   }, 4000);
 });
 events.on('new-flight', () => {
   setTimeout(() => {
     let arrived = `Pilot: flight with ID ${ID} has arrived`;
     console.log(arrived);
-    events.emit('Arrived', arrived);
+    events.emit('Arrived');
   }, 7000);
 });
 events.on('flight', (payload) => {
   console.log(payload);
-  console.log(`Pilot:Sorry i didn't catch this flight ID ${ID}.`);
+  Object.keys(payload).forEach((key) => {
+    console.log(`Pilot:Sorry i didn't catch this flight ID ${key}.`);
+  });
 })
